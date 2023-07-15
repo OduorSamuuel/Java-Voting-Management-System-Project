@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -32,7 +34,7 @@ public class RegistrationForm extends JFrame {
     public RegistrationForm() {
         setTitle("Register");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(10, 10)); // Add spacing between components
 
         // Create the logo panel
         logoPanel = new JPanel(new BorderLayout());
@@ -55,7 +57,7 @@ public class RegistrationForm extends JFrame {
         formPanel.setBackground(new Color(44, 62, 80));
         GridBagConstraints gbcForm = new GridBagConstraints();
         gbcForm.anchor = GridBagConstraints.WEST;
-        gbcForm.insets = new Insets(10, 5, 10, 5); // Add more spacing here (top, left, bottom, right)
+        gbcForm.insets = new Insets(10, 10, 10, 10); // Add more spacing here (top, left, bottom, right)
 
         firstNameLabel = new JLabel("First Name:");
         firstNameLabel.setForeground(Color.WHITE);
@@ -172,7 +174,24 @@ public class RegistrationForm extends JFrame {
         add(bottomPanel, BorderLayout.SOUTH);
 
         pack();
+        setLocationRelativeTo(null); // Center the frame on the screen
         setVisible(true);
+
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Handle cancel button click event
+                dispose(); // Close the RegistrationForm
+            }
+        });
+
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Handle register button click event
+                // Implement your registration logic here
+            }
+        });
     }
 
     public static void main(String[] args) {
