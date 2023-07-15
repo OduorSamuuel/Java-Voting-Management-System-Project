@@ -21,38 +21,36 @@ public class LoginForm extends JFrame {
     public LoginForm() {
         setTitle("Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
-
-        // Create the logo panel
         logoPanel = new JPanel(new BorderLayout());
         logoPanel.setBackground(new Color(248, 148, 6));
 
-        // Add the logo image
         ImageIcon logoImage = new ImageIcon("img/Kenya.png"); // Replace with the actual path to your logo image
         logoLabel = new JLabel(logoImage);
         logoPanel.add(logoLabel, BorderLayout.CENTER);
 
-        // Create the form panel
         JPanel formPanel = new JPanel(new GridBagLayout());
         formPanel.setBackground(new Color(44, 62, 80));
         GridBagConstraints gbcForm = new GridBagConstraints();
         gbcForm.anchor = GridBagConstraints.WEST;
-        gbcForm.insets = new Insets(10, 5, 10, 5); // Add more spacing here (top, left, bottom, right)
+        gbcForm.insets = new Insets(10, 20, 10, 20); // Adjust the insets to add more spacing
 
         idLabel = new JLabel("ID no:");
-        idLabel.setForeground(Color.WHITE); // Set the text color to white
+        idLabel.setForeground(Color.WHITE);
+        idLabel.setFont(idLabel.getFont().deriveFont(Font.PLAIN, 14)); // Increase the font size
         passwordLabel = new JLabel("Password:");
-        passwordLabel.setForeground(Color.WHITE); // Set the text color to white
+        passwordLabel.setForeground(Color.WHITE);
+        passwordLabel.setFont(passwordLabel.getFont().deriveFont(Font.PLAIN, 14)); // Increase the font size
         userTypeLabel = new JLabel("User Type:");
-        userTypeLabel.setForeground(Color.WHITE); // Set the text color to white
+        userTypeLabel.setForeground(Color.WHITE);
+        userTypeLabel.setFont(userTypeLabel.getFont().deriveFont(Font.PLAIN, 14)); // Increase the font size
         idField = new JTextField(20);
         passwordField = new JPasswordField(20);
         userTypeComboBox = new JComboBox<>(new String[]{"Admin", "Voter"});
         loginButton = new JButton("Login");
         cancelButton = new JButton("Cancel");
         createAccountLabel = new JLabel("<html><u>Click here to create a new account</u></html>");
-        createAccountLabel.setForeground(Color.WHITE); // Set the text color to white
-        createAccountLabel.setFont(createAccountLabel.getFont().deriveFont(Font.PLAIN, 12)); // Set the font size to 12
+        createAccountLabel.setForeground(Color.WHITE);
+        createAccountLabel.setFont(createAccountLabel.getFont().deriveFont(Font.PLAIN, 12));
 
         gbcForm.gridx = 0;
         gbcForm.gridy = 0;
@@ -72,32 +70,31 @@ public class LoginForm extends JFrame {
         gbcForm.gridx = 1;
         formPanel.add(userTypeComboBox, gbcForm);
 
-        // Create a panel for the buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(new Color(44, 62, 80));
 
-        cancelButton.setBackground(new Color(255, 102, 102)); // Set the background color of the cancel button to light red
-        loginButton.setBackground(new Color(102, 204, 255)); // Set the background color of the login button to light blue
+        cancelButton.setBackground(new Color(255, 102, 102));
+        cancelButton.setFont(cancelButton.getFont().deriveFont(Font.PLAIN, 14)); // Increase the font size
+        loginButton.setBackground(new Color(102, 204, 255));
+        loginButton.setFont(loginButton.getFont().deriveFont(Font.PLAIN, 14)); // Increase the font size
 
         buttonPanel.add(cancelButton);
         buttonPanel.add(loginButton);
 
         gbcForm.gridx = 0;
         gbcForm.gridy = 3;
-        gbcForm.gridwidth = 2; // Span the buttons across both columns
+        gbcForm.gridwidth = 2;
         formPanel.add(buttonPanel, gbcForm);
 
-        // Add the create account label
         gbcForm.gridx = 0;
         gbcForm.gridy = 4;
         gbcForm.gridwidth = 2;
-        gbcForm.insets = new Insets(5, 0, 0, 0); // Update the top inset to 5
+        gbcForm.insets = new Insets(5, 0, 0, 0);
         formPanel.add(createAccountLabel, gbcForm);
 
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle login button click event
                 String id = idField.getText();
                 String password = new String(passwordField.getPassword());
                 String userType = (String) userTypeComboBox.getSelectedItem();
@@ -110,7 +107,6 @@ public class LoginForm extends JFrame {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle cancel button click event
                 dispose(); // Close the Login form
             }
         });
@@ -118,31 +114,30 @@ public class LoginForm extends JFrame {
         createAccountLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Handle create account label click event
                 dispose(); // Close the Login form
-                new RegistrationForm(); // Open the RegistrationForm
+                SwingUtilities.invokeLater(RegistrationForm::new); // Open the RegistrationForm
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                createAccountLabel.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Change cursor to hand when hovering over the label
+                createAccountLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                createAccountLabel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR)); // Change cursor back to default when not hovering over the label
+                createAccountLabel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
         });
 
-        // Add the panels to the frame
         add(logoPanel, BorderLayout.NORTH);
         add(formPanel, BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null); // Center the LoginForm on the screen
         setVisible(true);
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new LoginForm());
+        SwingUtilities.invokeLater(LoginForm::new);
     }
 }
